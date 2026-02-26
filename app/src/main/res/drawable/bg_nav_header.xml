@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="220dp"
+    android:viewportWidth="280"
+    android:viewportHeight="220">
+
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M0,0h280v220h-280z" />
+
+    <!-- Concentric Circles in Top Right -->
+    <path
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M240,-20 A80,80 0 1,1 240,140 A80,80 0 1,1 240,-20" />
+    <path
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M240,10 A50,50 0 1,1 240,110 A50,50 0 1,1 240,10" />
+    <path
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M240,40 A20,20 0 1,1 240,80 A20,20 0 1,1 240,40" />
+
+    <!-- Crosshairs -->
+    <path
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M240,10 L240,110 M190,60 L290,60" />
+
+</vector>
