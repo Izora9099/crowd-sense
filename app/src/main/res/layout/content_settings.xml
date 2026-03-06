@@ -57,7 +57,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <Spinner
+                            android:id="@+id/sampling_interval_dropdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10s"
@@ -93,6 +94,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/background_logging"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -147,6 +149,7 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_test_connection_with_firebase"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="24dp"
@@ -172,6 +175,7 @@
                         android:src="@drawable/ic_check_circle_green" />
 
                     <TextView
+                        android:id="@+id/test_connection_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

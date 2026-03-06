@@ -20,6 +20,7 @@
             android:elevation="12dp">
 
             <LinearLayout
+                android:id="@+id/start_sensing_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -111,9 +112,11 @@
                            android:textSize="15sp"
                            android:textStyle="bold" />
                        <TextView
+                           android:id="@+id/sensing_state"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_marginTop="2dp"
+                           android:layout_marginStart="2dp"
                            android:text="OFF"
                            android:textColor="@color/warning_red"
                            android:textSize="15sp"
@@ -169,6 +172,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/network_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -179,6 +183,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/network_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_card"
@@ -247,7 +252,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="GPS: Active"
+                            android:text="GPS:"
+                            android:textColor="#1E293B"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/gps_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Active"
+                            android:layout_marginStart="2dp"
                             android:textColor="#1E293B"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -261,6 +275,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/gps_coordinates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="37.7749° N"
@@ -283,7 +298,7 @@
                 android:layout_height="match_parent">
 
                 <fragment
-                    android:id="@+id/google_map"
+                    android:id="@+id/map_view"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
