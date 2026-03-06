@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+    android:fillViewport="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,14 +96,29 @@
                         android:textSize="10sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Sensing Status: OFF"
-                        android:textColor="#1E293B"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal"
+                       android:layout_weight="1">
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="2dp"
+                           android:layout_marginEnd="1dp"
+                           android:text="Sensing Status:"
+                           android:textColor="#1E293B"
+                           android:textSize="15sp"
+                           android:textStyle="bold" />
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginTop="2dp"
+                           android:text="OFF"
+                           android:textColor="@color/warning_red"
+                           android:textSize="15sp"
+                           android:textStyle="bold" />
+                   </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -256,31 +270,39 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="220dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="4dp">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/map_placeholder" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:layout_margin="12dp"
-                android:background="#990F172A"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:text="LIVE COVERAGE MAP"
-                android:textColor="@color/white"
-                android:textSize="9sp"
-                android:textStyle="bold" />
+                <fragment
+                    android:id="@+id/google_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/text_over_the_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="12dp"
+                    android:background="#990F172A"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:text="LIVE COVERAGE MAP"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>

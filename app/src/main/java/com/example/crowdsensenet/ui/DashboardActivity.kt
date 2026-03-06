@@ -1,4 +1,4 @@
-package com.example.crowdsensenet
+package com.example.crowdsensenet.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.crowdsensenet.ui.MetricsActivity
+import com.example.crowdsensenet.R
+import com.example.crowdsensenet.ui.SettingsActivity
+import com.example.crowdsensenet.ui.UploadsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 

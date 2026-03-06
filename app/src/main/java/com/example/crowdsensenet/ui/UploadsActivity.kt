@@ -1,8 +1,10 @@
-package com.example.crowdsensenet
+package com.example.crowdsensenet.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.crowdsensenet.R
+import com.example.crowdsensenet.ui.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class UploadsActivity : AppCompatActivity() {
