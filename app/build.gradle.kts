@@ -1,6 +1,7 @@
     plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "2.0.20-1.0.24"
 }
 
 android {
@@ -52,6 +53,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
