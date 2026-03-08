@@ -2,22 +2,105 @@ package com.example.crowdsensenet.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
+import android.Manifest
+import android.os.Looper
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlin.coroutines.resume
 
 object LocationUtils {
 
-    suspend fun getLocation(context: Context): Location? {
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
-        val fused =
-            LocationServices.getFusedLocationProviderClient(context)
-
-        return suspendCancellableCoroutine @androidx.annotation.RequiresPermission(allOf = [android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION]) { cont ->
-            fused.lastLocation
-                .addOnSuccessListener { cont.resume(it, null) }
-                .addOnFailureListener { cont.resume(null, null) }
+    fun initialize(context: Context) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+        
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                locationResult.lastLocation
+            }
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    suspend fun getCurrentLocation(context: Context): Location? {
+        if (!::fusedLocationClient.isInitialized) {
+            initialize(context)
+        }
+
+        return suspendCancellableCoroutine { cont ->
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    cont.resume(location)
+                }
+                .addOnFailureListener { exception ->
+                    cont.resume(null)
+                }
+            
+            cont.invokeOnCancellation {
+                // Handle cancellation if needed
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun startLocationUpdates(context: Context, intervalMs: Long = 5000L): Flow<Location> = callbackFlow {
+        if (!::fusedLocationClient.isInitialized) {
+            initialize(context)
+        }
+
+        val locationRequest = LocationRequest.Builder(intervalMs)
+            .setPriority(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY)
+            .build()
+
+        val callback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                locationResult.lastLocation?.let { location ->
+                    trySend(location)
+                }
+            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            callback,
+            Looper.getMainLooper()
+        )
+
+        awaitClose {
+            fusedLocationClient.removeLocationUpdates(callback)
+        }
+    }
+
+    fun stopLocationUpdates() {
+        if (::fusedLocationClient.isInitialized && ::locationCallback.isInitialized) {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
+    }
+
+    fun hasLocationPermission(context: Context): Boolean {
+        return ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED ||
+        ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun formatCoordinates(latitude: Double, longitude: Double): String {
+        return "Latitude: %.6f\nLongitude: %.6f".format(latitude, longitude)
     }
 }

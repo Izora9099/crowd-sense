@@ -1,5 +1,6 @@
 package com.example.crowdsensenet.data.local
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "measurements")
