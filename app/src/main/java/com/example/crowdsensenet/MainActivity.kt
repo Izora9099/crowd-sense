@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.INTERNET,
-        Manifest.permission.ACCESS_NETWORK_STATE,
-        Manifest.permission.FOREGROUND_SERVICE
+        Manifest.permission.ACCESS_NETWORK_STATE
     )
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -104,6 +103,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun startLoading() {
         android.util.Log.d("MainActivity", "Starting loading thread...")
+        // Reset progress to 0%
+        progressStatus = 0
+        handler.post {
+            progressBar.progress = 0
+            percentageLabel.text = "0%"
+        }
+        
         Thread {
             try {
                 // Initialize Firebase in background thread
