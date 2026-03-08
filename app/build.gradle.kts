@@ -1,7 +1,7 @@
     plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
-    id("com.google.devtools.ksp") version "1.9.22-1.0.17"
+    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
 }
 
 android {
